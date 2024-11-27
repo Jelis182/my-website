@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册/登录</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ff6f00;
+        }
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #ff6f00;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e65c00;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>注册/登录</h2>
+    <form id="registrationForm">
+        <h3>注册</h3>
+        <label for="username">用户名：</label>
+        <input type="text" id="username" name="username" placeholder="输入用户名" required>
+
+        <label for="phone">手机号码：</label>
+        <input type="tel" id="phone" name="phone" placeholder="输入香港手机号码 (+852)" pattern="(\+852)?[0-9]{8}" required>
+
+        <label for="password">密码：</label>
+        <input type="password" id="password" name="password" placeholder="输入密码" required>
+
+        <label for="confirm-password">确认密码：</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="再次输入密码" required>
+
+        <label for="gender">性别：</label>
+        <select id="gender" name="gender" required>
+            <option value="male">男</option>
+            <option value="female">女</option>
+        </select>
+
+        <label for="invite-code">邀请码：</label>
+        <input type="text" id="invite-code" name="invite-code" placeholder="输入邀请码" required>
+
+        <button type="submit">注册</button>
+        <div id="error-message" class="error"></div>
+    </form>
+
+    <form id="loginForm" style="display: none;">
+        <h3>登录</h3>
+        <label for="login-username">用户名：</label>
+        <input type="text" id="login-username" name="login-username" placeholder="输入用户名" required>
+
+        <label for="login-password">密码：</label>
+        <input type="password" id="login-password" name="login-password" placeholder="输入密码" required>
+
+        <button type="submit">登录</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 10px;">
+        <button id="toggleFormBtn">切换到登录</button>
+    </div>
+</div>
+
+<script>
+    // 注册表单验证
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirm-password').value;
+        var errorMessage = document.getElementById('error-message');
+        
+        if (password !== confirmPassword) {
+            errorMessage.textContent = '密码和确认密码不一致，请重新输入。';
+        } else {
+            errorMessage.textContent = '';
+            alert('注册成功！');
+        }
+    });
+
+    // 切换表单显示
+    document.getElementById('toggleFormBtn').addEventListener('click', function() {
+        var registrationForm = document.getElementById('registrationForm');
+        var loginForm = document.getElementById('loginForm');
+        
+        if (registrationForm.style.display === 'none') {
+            registrationForm.style.display = 'block';
+            loginForm.style.display = 'none';
+            this.textContent = '切换到登录';
+        } else {
+            registrationForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            this.textContent = '切换到注册';
+        }
+    });
+</script>
+
+</body>
+</html>
